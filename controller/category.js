@@ -16,7 +16,14 @@ exports.getAll = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  // Code ...
+  const { href, title } = req.body;
+  const isCategoryExists = await categoryModel.findOne({ _id: req.params.id });
+  if (!isCategoryExists) {
+    return res.json({ message: "no such category" });
+  }
+
+  await categoryModel.updateOne({ _id: req.params.id }, { title, href });
+  res.json({ message: "category updated" });
 };
 
 exports.delete = async (req, res) => {
