@@ -5,7 +5,8 @@ exports.create = async (req, res) => {
 };
 
 exports.getAll = async (req, res) => {
-  // Code ...
+  const categories = await categoryModel.find({});
+  res.json(categories);
 };
 
 exports.update = async (req, res) => {
