@@ -5,6 +5,10 @@ const controller = require("../controller/user");
 const router = express.Router();
 
 router
+  .route("/banned")
+  .get(authMiddleware, isAdminMiddleware, controller.getAllBannedUsers);
+
+router
   .route("/user")
   .get(authMiddleware, controller.getUserInfoByItsOwn)
   .put(authMiddleware, controller.updateUserInfoByItsOwn);

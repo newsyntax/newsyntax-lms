@@ -165,6 +165,13 @@ exports.delete = async (req, res) => {
   res.json({ message: `${isUserExists.fullname} removed` });
 };
 
+exports.getAllBannedUsers = async (req, res) => {
+  const bannedUsers = await banUsersModel
+    .find({})
+    .populate("userID", "-password");
+  res.json(bannedUsers);
+};
+
 exports.banUser = async (req, res) => {
   const { id } = req.params;
   const isValidID = mongoose.isValidObjectId(id);
