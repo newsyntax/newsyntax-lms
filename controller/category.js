@@ -1,7 +1,13 @@
 const categoryModel = require("../model/category");
 
 exports.create = async (req, res) => {
-  // Code ...
+  const { href, title } = req.body;
+  const isCategoryExists = await categoryModel.findOne({ href });
+  if (isCategoryExists) {
+    return res.json({ message: "category is already exists" });
+  }
+  const category = await categoryModel.create({ title, href });
+  res.json(category);
 };
 
 exports.getAll = async (req, res) => {
