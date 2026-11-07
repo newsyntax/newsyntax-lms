@@ -27,5 +27,11 @@ exports.update = async (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-  // Code ...
+  const isCategoryExists = await categoryModel.findOne({ _id: req.params.id });
+  if (!isCategoryExists) {
+    return res.json({ message: "no such category" });
+  }
+
+  await categoryModel.deleteOne({ _id: req.params.id });
+  res.json({ message: "category deleted" });
 };
